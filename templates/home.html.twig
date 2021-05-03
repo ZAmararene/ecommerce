@@ -19,13 +19,15 @@
 							&euro;
 						</h4>
 						<div class="text-center mb-2">
-							<span class="badge badge-info">
+							<span class="badge badge-info p-2">
 								{{ product.category.name }}
 							</span>
 						</div>
 						<p class="card-text">{{ product.shortDescription }}</p>
 						<div class="text-center">
-							<a href="#" class="btn btn-primary mr-3">Détails</a>
+							<a href="{{ path('product_show', {'category_slug' : product.category.slug, 'slug' : product.slug}) }}" class="btn btn-primary mr-3">
+								Détails
+							</a>
 							<a href="#" class="btn btn-success">Ajouter</a>
 						</div>
 					</div>
