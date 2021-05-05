@@ -10,8 +10,9 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ProductController extends AbstractController
 {
@@ -51,9 +52,39 @@ class ProductController extends AbstractController
     /**
      * @Route("/admin/product/{id}/edit", name="product_edit")
      */
-    public function edit(Product $product, Request $request, EntityManagerInterface $entityManager)
+    public function edit(Product $product, Request $request, EntityManagerInterface $entityManager, ValidatorInterface $validator)
     {
+        // $client = [
+        //     'nom' => 'chamla',
+        //     'prenom' => 'Lior',
+        //     'voiture' => [
+        //         'marque' => 'Peugeot',
+        //         'couleur' => 'noire'
+        //     ]
+        // ];
+
+        // $collection = new Collection([
+        //     'nom' => new NotBlank(['message' => 'le nom ne doit pas être vide']),
+        //     'prenom' => [
+        //         new NotBlank(['message' => 'le prénom ne doit pas être vide']),
+        //         new Length(['min' => 3, 'minMessage' => 'Le prénom doit avoir au moins 3 caractères'])
+        //     ],
+        //     'voiture' => new Collection([
+        //         'marque' => new NotBlank(['message' => 'la marque ne doit pas être vide']),
+        //         'couleur' => new NotBlank(['message' => 'le couleur ne doit pas être vide']),
+        //     ])
+        // ]);
+
+        // $result = $validator->validate($client, $collection);
+
+        // $result = $validator->validate($product);
+
+        // if ($result->count() > 0) {
+        //     dd('Il y a des erreurs de validation', $result);
+        // }
+
         $form = $this->createForm(ProductType::class, $product);
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
